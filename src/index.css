@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  background: #fcf9f3;
+  color: #1c1c18;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ══════════════════════════════════════
+   Keyframes
+   ══════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+@keyframes meshPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes docsEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════
+   Scrollbar / inline code / code blocks
+   ══════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f6f3ed; }
+::-webkit-scrollbar-thumb { background: #ddc0ba; border-radius: 3px; }
+
+code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  background: #f0eee8;
+  color: #9f402d;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12.5px;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 13px;
+}
+
+/* ══════════════════════════════════════
+   Utility
+   ══════════════════════════════════════ */
+.container { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+img, svg { max-width: 100%; height: auto; }
+
+/* ══════════════════════════════════════
+   Footer
+   ══════════════════════════════════════ */
+.footer-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 32px; }
+
+/* ══════════════════════════════════════
+   Packages grid
+   ══════════════════════════════════════ */
+.pkg-card { transition: transform 0.16s ease, box-shadow 0.16s ease; }
+.pkg-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px rgba(0,0,0,0.06); }
+
+.feature { transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease; }
+.feature:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); border-color: #89726d; }
+
+/* ══════════════════════════════════════
+   Docs content enter animation
+   ══════════════════════════════════════ */
+.docs-content { animation: docsEnter 340ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* ══════════════════════════════════════
+   Navbar — one consistent 64px height at
+   every breakpoint, so everything that
+   aligns to it (dropdown, docs sidebar,
+   docs toggle) stays lined up.
+   ══════════════════════════════════════ */
+.nav-toggle { display: none; }
+
+@media (max-width: 900px) {
+  .site-nav { padding: 0 12px !important; }
+  .site-nav .nav-links { display: none !important; }
+  .site-nav .nav-toggle { display: block !important; }
+  .site-nav .nav-brand { font-size: 18px !important; }
+  .nav-mobile-menu { right: 8px !important; left: auto !important; }
+}
+
+@media (max-width: 480px) {
+  .site-nav { padding: 0 8px !important; }
+}
+
+/* ══════════════════════════════════════
+   Docs — sidebar, overlay, toggle, content
+   ══════════════════════════════════════ */
+.docs-sidebar {
+  transition: transform 220ms ease, width 220ms ease;
+  z-index: 200;
+}
+.docs-sidebar.collapsed { transform: translateX(-320px); }
+
+.docs-main { transition: margin-left 220ms ease; width: 100%; }
+
+.docs-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 76px;
+  left: 12px;
+  z-index: 250;
+  background: rgba(252,249,243,0.98);
+  border: 1px solid #ddc0ba;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.docs-overlay { display: none; }
+
+@media (max-width: 900px) {
+  .docs-sidebar { transform: translateX(-320px); }
+  .docs-sidebar:not(.collapsed) { transform: translateX(0); }
+  .docs-main { margin-left: 0 !important; }
+  .docs-content-wrap { padding: 32px 24px !important; }
+
+  .docs-overlay {
+    display: block;
+    position: fixed;
+    top: 64px; left: 0; right: 0; bottom: 0;
+    background: rgba(28,28,24,0.4);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 190;
+    animation: fadeIn 0.2s ease;
+  }
+}
+
+@media (max-width: 480px) {
+  .docs-sidebar { width: min(280px, 85vw) !important; }
+  .docs-content-wrap { padding: 20px 16px !important; }
+  .docs-content h2 { font-size: 19px !important; }
+}
+
+/* Repeating per-section title block (h1 + intro paragraph) */
+@media (max-width: 900px) {
+  .docs-header h1 { font-size: 27px !important; }
+  .docs-header p { font-size: 16px !important; }
+}
+@media (max-width: 480px) {
+  .docs-header h1 { font-size: 23px !important; }
+  .docs-header p { font-size: 15px !important; }
+}
+
+/* Two-column doc-card grids need to stack on phones or the cards get crushed */
+@media (max-width: 640px) {
+  .docs-card-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Safety net: let any long unbroken string (paths, identifiers) wrap instead
+   of forcing horizontal scroll on the whole page. Code blocks opt back out
+   since they should scroll horizontally, not break mid-token. */
+.docs-content { overflow-wrap: break-word; }
+.docs-content pre, .docs-content pre * { overflow-wrap: normal; }
+
+/* ══════════════════════════════════════
+   Hero / Features / Stats / How it works
+   ══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hero { padding: 72px 16px 48px !important; }
+  .hero h1 { margin-bottom: 12px !important; }
+  .hero p { max-width: 92% !important; }
+
+  .features { padding: 44px 12px !important; }
+  .features-grid { gap: 10px !important; grid-template-columns: repeat(2, 1fr) !important; }
+
+  .stats { padding: 32px 12px !important; }
+  .stats .stat-line { height: 2px !important; }
+  .stat-card { padding: 16px !important; }
+
+  .howit { padding: 48px 12px !important; }
+  .howit-row { flex-direction: column !important; gap: 18px !important; }
+  .howit-row > div { min-width: 0 !important; }
+  .howit-row .step-visual { min-height: 180px !important; }
+
+  canvas { max-width: 100% !important; height: auto !important; }
+}
+
+@media (max-width: 560px) {
+  .features-grid { grid-template-columns: 1fr !important; }
+  .feature-marquee { padding: 20px !important; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .hero { padding: 64px 10px 40px !important; }
+  .hero h1 { font-size: clamp(28px, 10vw, 44px) !important; }
+  .features { padding: 20px 8px !important; }
+  .stat-card { padding: 12px !important; }
+  .howit-row { gap: 12px !important; margin-bottom: 36px !important; }
+  .howit-row h3 { font-size: 18px !important; }
+  .howit-row p { font-size: 15px !important; }
+}
+
+/* ══════════════════════════════════════
+   Footer responsive
+   ══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .site-footer { padding: 36px 16px !important; }
+  .footer-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+  .site-footer img { width: 36px !important; height: 36px !important; }
+  .site-footer .footer-grid > div { max-width: 100% !important; }
+}
+
+@media (max-width: 480px) {
+  .site-footer { padding: 20px 12px !important; }
+  .site-footer > div:last-child { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
