@@ -1483,8 +1483,8 @@ function Footer({ onNavigate }) {
             Community
           </div>
           {[
-            { label: 'Twitter / X', action: () => window.open('https://twitter.com/koraprotocol', '_blank') },
-            { label: 'Discord', action: () => window.open('https://discord.gg/kora', '_blank') },
+            { label: 'Twitter / X', action: () => window.open('#', '_blank') },
+            { label: 'Discord', action: () => window.open('#', '_blank') },
             { label: 'Blog', action: () => onNavigate('landing') },
             { label: 'Status', action: () => onNavigate('landing') },
           ].map(item => (
@@ -1515,7 +1515,7 @@ function Footer({ onNavigate }) {
         alignItems: 'center', flexWrap: 'wrap', gap: 12
       }}>
         <span style={{ fontSize: 13, color: tokens.outline }}>
-          © 2026 Kora Protocol. MIT License.
+           Kora Protocol. MIT License.
         </span>
         <span style={{
           fontSize: 12, color: tokens.outline,
@@ -2795,7 +2795,6 @@ function MobileSection() {
   );
 }
 
-// ── Placeholder sections for remaining docs pages ──
 function PlaceholderSection({ title, subtitle }) {
   return (
     <div>
